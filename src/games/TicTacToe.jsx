@@ -7,7 +7,7 @@ function TicTacToe() {
   const [winner, setWinner] = useState(null);
   const [playerX, setPlayerX] = useState('Player X');
   const [playerO, setPlayerO] = useState('Player O');
-  const [score, setScore] = useState({ X: 0, O: 0 });
+  const [score, setScore] = useState({ X: 0, O: 0, Tie: 0 });
   const [showModal, setShowModal] = useState(false);
   const [countdown, setCountdown] = useState(3);
 
@@ -54,6 +54,12 @@ function TicTacToe() {
         [gameWinner]: prevScore[gameWinner] + 1,
       }));
       setShowModal(true);
+    } else if (!newBoard.includes(null)) {
+      setScore((prevScore) => ({
+        ...prevScore,
+        Tie: prevScore.Tie + 1,
+      }));
+      setShowModal(true);
     }
   };
 
@@ -78,7 +84,7 @@ function TicTacToe() {
     <motion.button
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="tic-tac-toe-square"
+      className={`tic-tac-toe-square ${board[i] === 'X' ? 'x-mark' : ''} ${board[i] === 'O' ? 'o-mark' : ''} ${!board[i] ? (isXNext ? 'cursor-x' : 'cursor-o') : ''}`}
       onClick={() => handleClick(i)}
     >
       {board[i]}
@@ -91,12 +97,12 @@ function TicTacToe() {
         Tic Tac Toe
       </motion.h1>
 
-      <div className="flex space-x-4 mb-4 gap-4">
+      <div className="player-names">
         <motion.input
           type="text"
           value={playerX}
           onChange={(e) => setPlayerX(e.target.value)}
-          className="input"
+          className={`input player-input ${isXNext ? 'active' : ''}`}
           placeholder="Player X Name"
           whileFocus={{ scale: 1.05 }}
         />
@@ -104,7 +110,7 @@ function TicTacToe() {
           type="text"
           value={playerO}
           onChange={(e) => setPlayerO(e.target.value)}
-          className="input"
+          className={`input player-input ${!isXNext ? 'active' : ''}`}
           placeholder="Player O Name"
           whileFocus={{ scale: 1.05 }}
         />
@@ -123,11 +129,26 @@ function TicTacToe() {
       </motion.div>
 
       <div className="text-2xl font-semibold mt-4">
-        {winner ? `Winner: ${winner === 'X' ? playerX : playerO}` : `Next player: ${isXNext ? playerX : playerO}`}
+        {winner ? `Winner: ${winner === 'X' ? playerX : playerO}` : ''}
       </div>
 
-      <div className="text-xl mt-2">
-        Score: {playerX} {score.X} - {playerO} {score.O}
+      <div className="score-table">
+        <table>
+          <thead>
+            <tr>
+              <th>{playerX}</th>
+              <th>Tie</th>
+              <th>{playerO}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{score.X}</td>
+              <td>{score.Tie}</td>
+              <td>{score.O}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <motion.button
@@ -153,11 +174,11 @@ function TicTacToe() {
               exit={{ scale: 0.5, opacity: 0 }}
               className="modal-content"
             >
-              <h2>Game Over!</h2>
-              <p className="text-xl mb-4">
-                {winner === 'X' ? playerX : playerO} wins!
+              <h2 className="modal-title">Game Over!</h2>
+              <p className="modal-winner">
+                {!board.includes(null) ? "It's a Tie!" : `${winner === 'X' ? playerX : playerO} wins!`}
               </p>
-              <p className="text-gray-600">
+              <p className="modal-countdown">
                 Starting new game in {countdown} seconds...
               </p>
             </motion.div>

@@ -4,18 +4,19 @@
   --secondary-color: #E74C3C; /* Vibrant Red */
   --accent-color: #F1C40F; /* Golden Yellow */
   
-  /* Background Colors */
-  --bg-primary: #ECF0F1; /* Light Gray */
-  --bg-secondary: #FFFFFF; /* White */
-  --bg-dark: #2C3E50; /* Deep Blue */
+  /* Dark Mode Colors */
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --bg-dark: #000000;
   
   /* Text Colors */
-  --text-primary: #2C3E50; /* Deep Blue */
-  --text-secondary: #7F8C8D; /* Gray */
-  --text-light: #ECF0F1; /* Light Gray */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-light: #ffffff;
   
   /* Game Colors */
   --tic-tac-toe-color: #3498DB; /* Blue */
+  --tic-tac-toe-lines: #ffffff;
   --stone-paper-scissor-color: #E74C3C; /* Red */
   --game-2048-color: #2ECC71; /* Green */
   
@@ -36,6 +37,10 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  
+  --tic-tac-toe-x: #000080; /* Navy Blue */
+  --tic-tac-toe-o: #008080; /* Teal */
+  --tic-tac-toe-heading: #10B981; /* Emerald Green */
 }
 
 * {
@@ -110,13 +115,15 @@ nav {
 }
 
 .btn-secondary {
-  background-color: var(--secondary-color);
-  color: var(--text-light);
+  display: block;
+  margin: var(--space-4) auto;
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
 }
 
 .btn-secondary:hover {
-  background-color: #C0392B;
-  transform: translateY(-2px);
+  background-color: #4a5568;
+  transform: none;
 }
 
 /* Game Cards */
@@ -181,52 +188,155 @@ nav {
   max-width: 800px;
   margin: 0 auto;
   padding: var(--space-6) var(--space-4);
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  min-height: 100vh;
 }
 
 .game-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--primary-color);
   text-align: center;
   margin-bottom: var(--space-5);
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--tic-tac-toe-heading);
+  background: none;
+  -webkit-text-fill-color: var(--tic-tac-toe-heading);
 }
 
 /* Tic Tac Toe */
 .tic-tac-toe-grid {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-2);
-  background-color: var(--tic-tac-toe-color);
-  padding: var(--space-3);
-  border-radius: var(--radius-lg);
-  max-width: 400px;
-  margin: 0 auto;
+  grid-template-rows: repeat(3, 1fr);
+  position: relative;
+}
+
+/* Grid lines */
+.tic-tac-toe-grid::before,
+.tic-tac-toe-grid::after {
+  content: '';
+  position: absolute;
+  background-color: var(--tic-tac-toe-lines);
+}
+
+/* Vertical lines */
+.tic-tac-toe-grid::before {
+  left: 33.333%;
+  width: 2px;
+  height: 100%;
+  box-shadow: 99px 0 0 var(--tic-tac-toe-lines);
+}
+
+/* Horizontal lines */
+.tic-tac-toe-grid::after {
+  top: 33.333%;
+  height: 2px;
+  width: 100%;
+  box-shadow: 0 99px 0 var(--tic-tac-toe-lines);
 }
 
 .tic-tac-toe-square {
-  aspect-ratio: 1;
-  border: 2px solid var(--bg-secondary);
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  font-size: 2rem;
-  font-weight: 700;
-  border-radius: var(--radius-md);
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 48px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  margin: 0;
 }
 
-.tic-tac-toe-square:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  transform: scale(1.05);
+.tic-tac-toe-square:empty {
+  color: transparent;
+}
+
+.tic-tac-toe-square:empty.cursor-x {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size: 24px;'><text y='28'>❌</text></svg>") 16 16, auto;
+}
+
+.tic-tac-toe-square:empty.cursor-o {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size: 24px;'><text y='28'>⭕</text></svg>") 16 16, auto;
+}
+
+/* Fix X and O colors */
+.tic-tac-toe-square:not(:empty) {
+  color: var(--tic-tac-toe-o);
+}
+
+.tic-tac-toe-square:not(:empty):contains('X') {
+  color: var(--tic-tac-toe-x);
+}
+
+.tic-tac-toe-square:focus {
+  outline: none;
+}
+
+.player-names {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto var(--space-5);
+  padding: 0 var(--space-4);
+}
+
+.player-input {
+  max-width: 200px;
+  text-align: center;
+  background-color: #1a202c;
+  color: var(--text-light);
+  border: 1px solid #2d3748;
+  padding: var(--space-2) var(--space-4);
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: var(--radius-md);
+}
+
+.player-input.active {
+  background-color: #10B981;
+  border-color: #059669;
+}
+
+.score-table {
+  margin: var(--space-5) auto;
+  max-width: 500px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  border: 1px solid #2d3748;
+}
+
+.score-table table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: var(--space-2);
+}
+
+.score-table th,
+.score-table td {
+  padding: var(--space-3);
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: #1a202c;
+  border-radius: var(--radius-md);
+  color: var(--text-light);
+}
+
+.score-table th {
+  font-size: 1.2rem;
+  color: #a0aec0;
+  font-weight: 500;
 }
 
 /* Stone Paper Scissor */
@@ -343,23 +453,38 @@ nav {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: var(--space-4);
 }
 
 .modal-content {
   background-color: var(--bg-secondary);
-  padding: var(--space-5);
+  padding: var(--space-6);
   border-radius: var(--radius-lg);
   text-align: center;
   max-width: 400px;
-  width: 100%;
+  width: 90%;
   box-shadow: var(--shadow-lg);
 }
 
-.modal-content h2 {
-  font-size: 2rem;
-  color: var(--text-primary);
+.modal-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-light);
   margin-bottom: var(--space-4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.modal-winner {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: var(--space-4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.modal-countdown {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Responsive Design */
