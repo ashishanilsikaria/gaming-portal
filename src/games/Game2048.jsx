@@ -156,8 +156,8 @@ function Game2048() {
     <div className="game-container">
       <h1 className="game-title">2048</h1>
 
-      <div className="flex justify-between items-center w-96">
-        <div className="text-2xl">Score: {score}</div>
+      <div className="flex justify-between items-center w-full max-w-[400px] mx-auto mb-8">
+        <div className="text-2xl font-semibold text-center">Score: {score}</div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -184,7 +184,7 @@ function Game2048() {
         )}
       </div>
 
-      <div className="text-center text-gray-400">
+      <div className="text-center text-gray-400 mt-8">
         Use arrow keys to move tiles
       </div>
 

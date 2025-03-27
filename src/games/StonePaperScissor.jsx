@@ -13,7 +13,6 @@ function StonePaperScissor() {
   const [result, setResult] = useState(null);
   const [score, setScore] = useState({ player: 0, computer: 0 });
   const [showModal, setShowModal] = useState(false);
-  const [countdown, setCountdown] = useState(3);
   const [playerName, setPlayerName] = useState('Player');
 
   const getComputerChoice = () => {
@@ -57,21 +56,15 @@ function StonePaperScissor() {
   }, []);
 
   useEffect(() => {
-    let timer;
-    if (showModal) {
-      timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev === 1) {
-            clearInterval(timer);
-            resetGame();
-            return 3;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [showModal, resetGame]);
+    const handleKeyPress = (e) => {
+      if (showModal) {
+        setShowModal(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [showModal]);
 
   return (
     <div className="game-container">
@@ -84,42 +77,55 @@ function StonePaperScissor() {
         Stone Paper Scissor
       </motion.h1>
 
-      <div className="flex space-x-4 mb-4">
+      <div className="player-names">
         <motion.input
           type="text"
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
-          className="input"
+          className="input player-input active"
           placeholder="Player Name"
           whileFocus={{ scale: 1.05 }}
         />
       </div>
 
       <motion.div 
-        className="flex justify-center space-x-12 items-center bg-gray-800 p-8 rounded-xl" 
+        className="choice-container"
         initial={{ scale: 0.8 }} 
         animate={{ scale: 1 }} 
         transition={{ duration: 0.5 }}
       >
-        <div className="text-center">
+        <div className="choice-box">
           <h2 className="text-2xl font-semibold mb-4 text-white">{playerName}</h2>
-          <div className="w-40 h-40 bg-gray-700 rounded-lg flex items-center justify-center text-6xl shadow-lg">
+          <div className="choice-display">
             {playerChoice ? playerChoice.emoji : '❓'}
           </div>
         </div>
-        <div className="text-center">
+        <div className="choice-box">
           <h2 className="text-2xl font-semibold mb-4 text-white">Computer</h2>
-          <div className="w-40 h-40 bg-gray-700 rounded-lg flex items-center justify-center text-6xl shadow-lg">
+          <div className="choice-display">
             {computerChoice ? computerChoice.emoji : '❓'}
           </div>
         </div>
       </motion.div>
 
-      <div className="text-2xl font-semibold mt-4">
-        Score: {playerName} {score.player} - Computer {score.computer}
+      <div className="score-table">
+        <table>
+          <thead>
+            <tr>
+              <th>{playerName}</th>
+              <th>Computer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{score.player}</td>
+              <td>{score.computer}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div className="flex space-x-6 mt-4">
+      <div className="choice-buttons">
         {choices.map((choice) => (
           <motion.button
             key={choice.name}
@@ -149,6 +155,7 @@ function StonePaperScissor() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="game-over-modal"
+            onClick={() => setShowModal(false)}
           >
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
@@ -156,14 +163,14 @@ function StonePaperScissor() {
               exit={{ scale: 0.5, opacity: 0 }}
               className="modal-content"
             >
-              <h2>Round Over!</h2>
-              <p className="text-xl mb-4">
+              <h2 className="modal-title">Round Over!</h2>
+              <p className="modal-winner">
                 {result === 'win' && `${playerName} wins!`}
                 {result === 'lose' && 'Computer wins!'}
                 {result === 'draw' && "It's a draw!"}
               </p>
-              <p className="text-gray-600">
-                Starting new round in {countdown} seconds...
+              <p className="text-gray-400 mt-4">
+                Click anywhere or press any key to continue
               </p>
             </motion.div>
           </motion.div>

@@ -308,47 +308,42 @@ nav {
 }
 
 .score-table {
-  margin: var(--space-5) auto;
-  max-width: 500px;
   background-color: var(--bg-secondary);
+  padding: var(--space-4);
   border-radius: var(--radius-lg);
-  padding: var(--space-3);
-  border: 1px solid #2d3748;
+  margin: var(--space-4) 0;
+  box-shadow: var(--shadow-md);
 }
 
 .score-table table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: var(--space-2);
+  border-collapse: collapse;
 }
 
 .score-table th,
 .score-table td {
-  padding: var(--space-3);
+  padding: var(--space-2);
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  background-color: #1a202c;
-  border-radius: var(--radius-md);
-  color: var(--text-light);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--stone-paper-scissor-color);
 }
 
 .score-table th {
-  font-size: 1.2rem;
-  color: #a0aec0;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--stone-paper-scissor-color);
 }
 
 /* Stone Paper Scissor */
 .choice-container {
   display: flex;
   justify-content: center;
-  gap: var(--space-5);
-  background-color: var(--stone-paper-scissor-color);
+  gap: var(--space-6);
+  background-color: var(--bg-secondary);
   padding: var(--space-4);
   border-radius: var(--radius-lg);
-  max-width: 600px;
-  margin: 0 auto;
+  margin: var(--space-4) 0;
+  box-shadow: var(--shadow-md);
 }
 
 .choice-box {
@@ -356,31 +351,51 @@ nav {
 }
 
 .choice-box h2 {
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: var(--space-3);
-  color: var(--text-light);
 }
 
 .choice-display {
-  width: 8rem;
-  height: 8rem;
-  background-color: var(--bg-secondary);
+  width: 160px;
+  height: 160px;
+  background-color: var(--bg-primary);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: var(--text-primary);
+  font-size: 4rem;
   box-shadow: var(--shadow-md);
-  margin: 0 auto;
+  border: 2px solid var(--stone-paper-scissor-color);
+  transition: all 0.3s ease;
+}
+
+.choice-display:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .choice-buttons {
   display: flex;
-  gap: var(--space-3);
-  margin-top: var(--space-4);
   justify-content: center;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.choice-buttons .btn {
+  background-color: var(--stone-paper-scissor-color);
+  color: var(--text-light);
+  padding: var(--space-4);
+  font-size: 2rem;
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+}
+
+.choice-buttons .btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* 2048 */
@@ -388,11 +403,12 @@ nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-2);
-  background-color: var(--game-2048-color);
+  background-color: var(--bg-secondary);
   padding: var(--space-3);
   border-radius: var(--radius-lg);
   max-width: 400px;
   margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tile {
@@ -404,23 +420,82 @@ nav {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.tile-0 { background-color: rgba(255, 255, 255, 0.8); }
-.tile-2 { background-color: #F1C40F; color: var(--text-light); }
-.tile-4 { background-color: #E67E22; color: var(--text-light); }
-.tile-8 { background-color: #E74C3C; color: var(--text-light); }
-.tile-16 { background-color: #C0392B; color: var(--text-light); }
-.tile-32 { background-color: #8E44AD; color: var(--text-light); }
-.tile-64 { background-color: #9B59B6; color: var(--text-light); }
-.tile-128 { background-color: #3498DB; color: var(--text-light); }
-.tile-256 { background-color: #2980B9; color: var(--text-light); }
-.tile-512 { background-color: #2ECC71; color: var(--text-light); }
-.tile-1024 { background-color: #27AE60; color: var(--text-light); }
-.tile-2048 { background-color: #16A085; color: var(--text-light); }
+.tile-0 { 
+  background-color: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tile-2 { 
+  background-color: var(--tic-tac-toe-color);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-4 { 
+  background-color: var(--tic-tac-toe-o);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-8 { 
+  background-color: var(--tic-tac-toe-x);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-16 { 
+  background-color: var(--tic-tac-toe-heading);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-32 { 
+  background-color: var(--tic-tac-toe-color);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-64 { 
+  background-color: var(--tic-tac-toe-o);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-128 { 
+  background-color: var(--tic-tac-toe-x);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-256 { 
+  background-color: var(--tic-tac-toe-heading);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-512 { 
+  background-color: var(--tic-tac-toe-color);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-1024 { 
+  background-color: var(--tic-tac-toe-o);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tile-2048 { 
+  background-color: var(--tic-tac-toe-x);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
 /* Input Fields */
 .input {
@@ -448,7 +523,7 @@ nav {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -463,22 +538,20 @@ nav {
   max-width: 400px;
   width: 90%;
   box-shadow: var(--shadow-lg);
+  border: 2px solid var(--stone-paper-scissor-color);
 }
 
 .modal-title {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--text-light);
-  margin-bottom: var(--space-4);
-  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--stone-paper-scissor-color);
+  margin-bottom: var(--space-2);
 }
 
 .modal-winner {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--accent-color);
+  font-size: 1.5rem;
+  color: var(--text-primary);
   margin-bottom: var(--space-4);
-  font-family: 'Poppins', sans-serif;
 }
 
 .modal-countdown {
