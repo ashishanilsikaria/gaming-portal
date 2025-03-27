@@ -5,8 +5,8 @@ function TicTacToe() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(true);
   const [winner, setWinner] = useState(null);
-  const [playerX, setPlayerX] = useState('Player X');
-  const [playerO, setPlayerO] = useState('Player O');
+  const [playerX, setPlayerX] = useState('Ashish');
+  const [playerO, setPlayerO] = useState('Pavit');
   const [score, setScore] = useState({ X: 0, O: 0, Tie: 0 });
   const [showModal, setShowModal] = useState(false);
 

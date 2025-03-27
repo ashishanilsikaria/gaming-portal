@@ -12,7 +12,7 @@ function StonePaperScissor() {
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState(null);
   const [score, setScore] = useState({ player: 0, computer: 0 });
-  const [playerName, setPlayerName] = useState('Player');
+  const [playerName, setPlayerName] = useState('Mehul');
 
   const getComputerChoice = () => {
     const randomIndex = Math.floor(Math.random() * choices.length);

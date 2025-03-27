@@ -6,7 +6,7 @@ function Game2048() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [playerName, setPlayerName] = useState('Player');
+  const [playerName, setPlayerName] = useState('Parth');
   const [gameStarted, setGameStarted] = useState(false);
 
   const initializeBoard = useCallback(() => {
