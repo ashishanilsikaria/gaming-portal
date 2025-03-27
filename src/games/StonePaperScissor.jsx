@@ -50,6 +50,7 @@ function StonePaperScissor() {
     setPlayerChoice(null);
     setComputerChoice(null);
     setResult(null);
+    setScore({ player: 0, computer: 0 });
   }, []);
 
   return (
@@ -131,7 +132,7 @@ function StonePaperScissor() {
         className="btn btn-secondary mt-4"
         onClick={resetGame}
       >
-        Reset Game
+        Reset
       </motion.button>
     </div>
   );
