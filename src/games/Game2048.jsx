@@ -6,7 +6,6 @@ function Game2048() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [lastMove, setLastMove] = useState(null);
 
   const initializeBoard = useCallback(() => {
     const newBoard = Array(4).fill().map(() => Array(4).fill(0));
@@ -84,7 +83,6 @@ function Game2048() {
     }
 
     if (moved) {
-      setLastMove(direction);
       addNewTile(newBoard);
       setBoard(newBoard);
       checkGameOver(newBoard);
@@ -152,50 +150,13 @@ function Game2048() {
     setScore(0);
     setGameOver(false);
     setShowModal(false);
-    setLastMove(null);
   }, [initializeBoard]);
-
-  const getTileAnimation = (value, isNew) => {
-    if (value === 0) return {};
-    
-    const baseAnimation = {
-      scale: [1, 1.1, 1],
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut"
-      }
-    };
-
-    if (isNew) {
-      return {
-        scale: [0, 1.2, 1],
-        transition: {
-          duration: 0.3,
-          ease: "easeOut"
-        }
-      };
-    }
-
-    return baseAnimation;
-  };
 
   return (
     <div className="game-container">
-      <motion.h1 
-        className="game-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        2048
-      </motion.h1>
+      <h1 className="game-title">2048</h1>
 
-      <motion.div 
-        className="flex justify-between items-center w-96"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
+      <div className="flex justify-between items-center w-96">
         <div className="text-2xl">Score: {score}</div>
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -205,44 +166,27 @@ function Game2048() {
         >
           Reset Game
         </motion.button>
-      </motion.div>
+      </div>
 
-      <motion.div 
-        className="game-2048-grid"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3 }}
-      >
+      <div className="game-2048-grid">
         {board.map((row, i) =>
           row.map((cell, j) => (
             <motion.div
               key={`tile-${i}-${j}-${cell}`}
-              layout
-              animate={getTileAnimation(cell, cell !== 0 && board[i][j] === cell)}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
               className={`tile tile-${cell}`}
             >
-              {cell !== 0 && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  {cell}
-                </motion.span>
-              )}
+              {cell !== 0 && cell}
             </motion.div>
           ))
         )}
-      </motion.div>
+      </div>
 
-      <motion.div 
-        className="text-center text-gray-400"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-      >
+      <div className="text-center text-gray-400">
         Use arrow keys to move tiles
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         {showModal && (
@@ -250,39 +194,21 @@ function Game2048() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
             className="game-over-modal"
           >
             <motion.div
-              initial={{ scale: 0.5, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.5, opacity: 0, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
               className="modal-content"
             >
-              <motion.h2
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                Game Over!
-              </motion.h2>
-              <motion.p 
-                className="text-xl mb-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
+              <h2>Game Over!</h2>
+              <p className="text-xl mb-4">
                 Final Score: {score}
-              </motion.p>
-              <motion.p 
-                className="text-gray-600"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
+              </p>
+              <p className="text-gray-600">
                 Starting new game in 3 seconds...
-              </motion.p>
+              </p>
             </motion.div>
           </motion.div>
         )}
