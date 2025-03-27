@@ -9,7 +9,6 @@ function TicTacToe() {
   const [playerO, setPlayerO] = useState('Player O');
   const [score, setScore] = useState({ X: 0, O: 0, Tie: 0 });
   const [showModal, setShowModal] = useState(false);
-  const [countdown, setCountdown] = useState(3);
 
   const calculateWinner = (squares) => {
     const lines = [
@@ -62,23 +61,6 @@ function TicTacToe() {
       setShowModal(true);
     }
   };
-
-  useEffect(() => {
-    let timer;
-    if (showModal) {
-      timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev === 1) {
-            clearInterval(timer);
-            resetGame();
-            return 3;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [showModal, resetGame]);
 
   const renderSquare = (i) => (
     <motion.button
@@ -178,9 +160,14 @@ function TicTacToe() {
               <p className="modal-winner">
                 {!board.includes(null) ? "It's a Tie!" : `${winner === 'X' ? playerX : playerO} wins!`}
               </p>
-              <p className="modal-countdown">
-                Starting new game in {countdown} seconds...
-              </p>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="btn btn-secondary mt-4"
+                onClick={resetGame}
+              >
+                Play Again
+              </motion.button>
             </motion.div>
           </motion.div>
         )}

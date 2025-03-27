@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const choices = [
   { name: 'stone', emoji: '✊' },
@@ -12,7 +12,6 @@ function StonePaperScissor() {
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState(null);
   const [score, setScore] = useState({ player: 0, computer: 0 });
-  const [showModal, setShowModal] = useState(false);
   const [playerName, setPlayerName] = useState('Player');
 
   const getComputerChoice = () => {
@@ -45,26 +44,13 @@ function StonePaperScissor() {
     } else if (gameResult === 'lose') {
       setScore(prev => ({ ...prev, computer: prev.computer + 1 }));
     }
-    setShowModal(true);
   };
 
   const resetGame = useCallback(() => {
     setPlayerChoice(null);
     setComputerChoice(null);
     setResult(null);
-    setShowModal(false);
   }, []);
-
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (showModal) {
-        setShowModal(false);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [showModal]);
 
   return (
     <div className="game-container">
@@ -147,35 +133,6 @@ function StonePaperScissor() {
       >
         Reset Game
       </motion.button>
-
-      <AnimatePresence>
-        {showModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="game-over-modal"
-            onClick={() => setShowModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              className="modal-content"
-            >
-              <h2 className="modal-title">Round Over!</h2>
-              <p className="modal-winner">
-                {result === 'win' && `${playerName} wins!`}
-                {result === 'lose' && 'Computer wins!'}
-                {result === 'draw' && "It's a draw!"}
-              </p>
-              <p className="text-gray-400 mt-4">
-                Click anywhere or press any key to continue
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
