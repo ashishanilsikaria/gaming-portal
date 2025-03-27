@@ -7,10 +7,10 @@ import Game2048 from "./games/Game2048";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
-        <nav className="bg-white/80 backdrop-blur-sm shadow-lg">
+      <div className="min-h-screen bg-gradient-to-br from-black via-[#111111] to-[#1a1a1a]">
+        <nav className="bg-black/80 backdrop-blur-sm shadow-lg">
           <div className="container nav-container">
-            <Link to="/" className="nav-logo text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300">
+            <Link to="/" className="nav-logo text-3xl font-bold bg-gradient-to-r from-[#A8E6CF] to-[#8cd3b7] bg-clip-text text-transparent hover:scale-105 transition-transform duration-300">
               🎮 Gaming Portal 🎮
             </Link>
             <div className="nav-links">

@@ -1,24 +1,24 @@
 :root {
   /* Primary Colors */
-  --primary-color: #2C3E50; /* Deep Blue */
-  --secondary-color: #E74C3C; /* Vibrant Red */
-  --accent-color: #F1C40F; /* Golden Yellow */
+  --primary-color: #A8E6CF; /* Pastel Green */
+  --secondary-color: #8cd3b7; /* Darker Pastel Green */
+  --accent-color: #A8E6CF; /* Pastel Green */
   
   /* Dark Mode Colors */
-  --bg-primary: #000000;
-  --bg-secondary: #111111;
-  --bg-dark: #000000;
+  --bg-primary: #000000; /* Pure Black */
+  --bg-secondary: #111111; /* Dark Gray */
+  --bg-dark: #000000; /* Pure Black */
   
   /* Text Colors */
   --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
+  --text-secondary: #E0E0E0;
   --text-light: #ffffff;
   
   /* Game Colors */
-  --tic-tac-toe-color: #3498DB; /* Blue */
+  --tic-tac-toe-color: #A8E6CF; /* Pastel Green */
   --tic-tac-toe-lines: #ffffff;
-  --stone-paper-scissor-color: #E74C3C; /* Red */
-  --game-2048-color: #2ECC71; /* Green */
+  --stone-paper-scissor-color: #A8E6CF; /* Pastel Green */
+  --game-2048-color: #A8E6CF; /* Pastel Green */
   
   /* Spacing (8pt Grid System) */
   --space-1: 0.5rem;    /* 8px */
@@ -34,13 +34,13 @@
   --radius-lg: 1rem;     /* 16px */
   
   /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
   
-  --tic-tac-toe-x: #000080; /* Navy Blue */
-  --tic-tac-toe-o: #008080; /* Teal */
-  --tic-tac-toe-heading: #10B981; /* Emerald Green */
+  --tic-tac-toe-x: #8cd3b7; /* Darker Pastel Green */
+  --tic-tac-toe-o: #A8E6CF; /* Pastel Green */
+  --tic-tac-toe-heading: #A8E6CF; /* Pastel Green */
 }
 
 * {
@@ -106,23 +106,26 @@ nav {
 
 .btn-primary {
   background-color: var(--primary-color);
-  color: var(--text-light);
+  color: var(--bg-dark);
+  font-weight: 700;
 }
 
 .btn-primary:hover {
-  background-color: #34495E;
+  background-color: #8cd3b7;
   transform: translateY(-2px);
 }
 
 .btn-secondary {
   display: block;
   margin: var(--space-4) auto;
-  background-color: #2d3748;
-  border: 1px solid #4a5568;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--primary-color);
+  color: var(--text-light);
 }
 
 .btn-secondary:hover {
-  background-color: #4a5568;
+  background-color: var(--primary-color);
+  color: var(--bg-dark);
   transform: none;
 }
 
@@ -385,15 +388,16 @@ nav {
 
 .choice-buttons .btn {
   background-color: var(--stone-paper-scissor-color);
-  color: var(--text-light);
+  color: var(--bg-dark);
   padding: var(--space-4);
   font-size: 2rem;
   border-radius: var(--radius-lg);
   transition: all 0.3s ease;
+  font-weight: 700;
 }
 
 .choice-buttons .btn:hover {
-  background-color: #c0392b;
+  background-color: #ff9ba3;
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }

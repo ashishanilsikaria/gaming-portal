@@ -68,10 +68,10 @@ function StonePaperScissor() {
 
   return (
     <div className="game-container">
-      <motion.h1 
-        className="game-title" 
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }} 
+      <motion.h1
+        className="game-title"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
         Stone Paper Scissor
@@ -87,11 +87,25 @@ function StonePaperScissor() {
           whileFocus={{ scale: 1.05 }}
         />
       </div>
+      
+      <div className="choice-buttons">
+        {choices.map((choice) => (
+          <motion.button
+            key={choice.name}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="btn btn-primary capitalize text-2xl p-6 rounded-xl"
+            onClick={() => handleChoice(choice)}
+          >
+            {choice.emoji}
+          </motion.button>
+        ))}
+      </div>
 
-      <motion.div 
+      <motion.div
         className="choice-container"
-        initial={{ scale: 0.8 }} 
-        animate={{ scale: 1 }} 
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
       >
         <div className="choice-box">
@@ -123,20 +137,6 @@ function StonePaperScissor() {
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div className="choice-buttons">
-        {choices.map((choice) => (
-          <motion.button
-            key={choice.name}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="btn btn-primary capitalize text-2xl p-6 rounded-xl"
-            onClick={() => handleChoice(choice)}
-          >
-            {choice.emoji}
-          </motion.button>
-        ))}
       </div>
 
       <motion.button
