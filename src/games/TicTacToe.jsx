@@ -36,6 +36,14 @@ function TicTacToe() {
     setIsXNext(true);
     setWinner(null);
     setShowModal(false);
+    setScore({ X: 0, O: 0, Tie: 0 });
+  }, []);
+
+  const resetBoard = useCallback(() => {
+    setBoard(Array(9).fill(null));
+    setIsXNext(true);
+    setWinner(null);
+    setShowModal(false);
   }, []);
 
   const handleClick = (i) => {
@@ -139,7 +147,7 @@ function TicTacToe() {
         className="btn btn-secondary mt-4"
         onClick={resetGame}
       >
-        Reset Game
+        Reset
       </motion.button>
 
       <AnimatePresence>
@@ -164,7 +172,7 @@ function TicTacToe() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="btn btn-secondary mt-4"
-                onClick={resetGame}
+                onClick={resetBoard}
               >
                 Play Again
               </motion.button>
