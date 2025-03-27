@@ -6,6 +6,8 @@ function Game2048() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [playerName, setPlayerName] = useState('Player');
+  const [gameStarted, setGameStarted] = useState(false);
 
   const initializeBoard = useCallback(() => {
     const newBoard = Array(4).fill().map(() => Array(4).fill(0));
@@ -31,6 +33,12 @@ function Game2048() {
 
   const moveTiles = useCallback((direction) => {
     if (gameOver) return;
+
+    if (!gameStarted) {
+      setGameStarted(true);
+      setBoard(initializeBoard());
+      return;
+    }
 
     const newBoard = board.map(row => [...row]);
     let moved = false;
@@ -87,7 +95,7 @@ function Game2048() {
       setBoard(newBoard);
       checkGameOver(newBoard);
     }
-  }, [board, gameOver, addNewTile]);
+  }, [board, gameOver, addNewTile, gameStarted, initializeBoard]);
 
   const checkGameOver = useCallback((board) => {
     // Check for empty cells
@@ -146,29 +154,41 @@ function Game2048() {
   }, [showModal]);
 
   const resetGame = useCallback(() => {
-    setBoard(initializeBoard());
+    setBoard(Array(4).fill().map(() => Array(4).fill(0)));
     setScore(0);
     setGameOver(false);
     setShowModal(false);
-  }, [initializeBoard]);
+    setGameStarted(false);
+  }, []);
 
   return (
     <div className="game-container">
-      <h1 className="game-title">2048</h1>
+      <motion.h1 
+        className="game-title" 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ duration: 1 }}
+      >
+        2048
+      </motion.h1>
 
-      <div className="flex justify-between items-center w-full max-w-[400px] mx-auto mb-8">
-        <div className="text-2xl font-semibold text-center">Score: {score}</div>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="btn btn-secondary"
-          onClick={resetGame}
-        >
-          Reset Game
-        </motion.button>
+      <div className="player-names">
+        <motion.input
+          type="text"
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value)}
+          className="input player-input active"
+          placeholder="Player Name"
+          whileFocus={{ scale: 1.05 }}
+        />
       </div>
 
-      <div className="game-2048-grid">
+      <motion.div 
+        className="game-2048-grid" 
+        initial={{ scale: 0.8 }} 
+        animate={{ scale: 1 }} 
+        transition={{ duration: 0.5 }}
+      >
         {board.map((row, i) =>
           row.map((cell, j) => (
             <motion.div
@@ -182,10 +202,32 @@ function Game2048() {
             </motion.div>
           ))
         )}
-      </div>
+      </motion.div>
 
-      <div className="text-center text-gray-400 mt-8">
-        Use arrow keys to move tiles
+
+
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="btn btn-secondary mt-4"
+        onClick={resetGame}
+      >
+        Reset Game
+      </motion.button>
+
+      <div className="score-table">
+        <table>
+          <thead>
+            <tr>
+              <th>{playerName}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{score}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <AnimatePresence>
@@ -202,11 +244,11 @@ function Game2048() {
               exit={{ scale: 0.5, opacity: 0 }}
               className="modal-content"
             >
-              <h2>Game Over!</h2>
-              <p className="text-xl mb-4">
-                Final Score: {score}
+              <h2 className="modal-title">Game Over!</h2>
+              <p className="modal-winner">
+                {playerName}'s Final Score: {score}
               </p>
-              <p className="text-gray-600">
+              <p className="modal-countdown">
                 Starting new game in 3 seconds...
               </p>
             </motion.div>

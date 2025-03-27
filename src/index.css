@@ -20,6 +20,32 @@
   --stone-paper-scissor-color: #A8E6CF; /* Pastel Green */
   --game-2048-color: #A8E6CF; /* Pastel Green */
   
+  /* 2048 Tile Colors - Dark Mode */
+  --tile-2: #2d3748;
+  --tile-4: #4a5568;
+  --tile-8: #2c5282;
+  --tile-16: #2b6cb0;
+  --tile-32: #3182ce;
+  --tile-64: #4299e1;
+  --tile-128: #63b3ed;
+  --tile-256: #4299e1;
+  --tile-512: #3182ce;
+  --tile-1024: #2b6cb0;
+  --tile-2048: #2c5282;
+  
+  /* 2048 Tile Text Colors - Dark Mode */
+  --tile-text-2: #e2e8f0;
+  --tile-text-4: #e2e8f0;
+  --tile-text-8: #ffffff;
+  --tile-text-16: #ffffff;
+  --tile-text-32: #ffffff;
+  --tile-text-64: #ffffff;
+  --tile-text-128: #ffffff;
+  --tile-text-256: #ffffff;
+  --tile-text-512: #ffffff;
+  --tile-text-1024: #ffffff;
+  --tile-text-2048: #ffffff;
+  
   /* Spacing (8pt Grid System) */
   --space-1: 0.5rem;    /* 8px */
   --space-2: 1rem;      /* 16px */
@@ -404,102 +430,45 @@ nav {
 
 /* 2048 */
 .game-2048-grid {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-2);
-  background-color: var(--bg-secondary);
-  padding: var(--space-3);
-  border-radius: var(--radius-lg);
-  max-width: 400px;
-  margin: 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  background-color: #1a202c;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
 }
 
 .tile {
-  aspect-ratio: 1;
-  border-radius: var(--radius-md);
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
+  font-size: 2.5rem;
+  font-weight: bold;
+  border-radius: var(--radius-sm);
+  background-color: #2d3748;
+  color: var(--tile-text-2);
+  transition: all 0.15s ease;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.tile-0 { 
-  background-color: var(--bg-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.tile-2 { 
-  background-color: var(--tic-tac-toe-color);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-4 { 
-  background-color: var(--tic-tac-toe-o);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-8 { 
-  background-color: var(--tic-tac-toe-x);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-16 { 
-  background-color: var(--tic-tac-toe-heading);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-32 { 
-  background-color: var(--tic-tac-toe-color);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-64 { 
-  background-color: var(--tic-tac-toe-o);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-128 { 
-  background-color: var(--tic-tac-toe-x);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-256 { 
-  background-color: var(--tic-tac-toe-heading);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-512 { 
-  background-color: var(--tic-tac-toe-color);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-1024 { 
-  background-color: var(--tic-tac-toe-o);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tile-2048 { 
-  background-color: var(--tic-tac-toe-x);
-  color: var(--text-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+.tile-2 { background-color: var(--tile-2); color: var(--tile-text-2); }
+.tile-4 { background-color: var(--tile-4); color: var(--tile-text-4); }
+.tile-8 { background-color: var(--tile-8); color: var(--tile-text-8); }
+.tile-16 { background-color: var(--tile-16); color: var(--tile-text-16); }
+.tile-32 { background-color: var(--tile-32); color: var(--tile-text-32); }
+.tile-64 { background-color: var(--tile-64); color: var(--tile-text-64); }
+.tile-128 { background-color: var(--tile-128); color: var(--tile-text-128); font-size: 2rem; }
+.tile-256 { background-color: var(--tile-256); color: var(--tile-text-256); font-size: 2rem; }
+.tile-512 { background-color: var(--tile-512); color: var(--tile-text-512); font-size: 2rem; }
+.tile-1024 { background-color: var(--tile-1024); color: var(--tile-text-1024); font-size: 1.75rem; }
+.tile-2048 { background-color: var(--tile-2048); color: var(--tile-text-2048); font-size: 1.75rem; }
 
 /* Input Fields */
 .input {
